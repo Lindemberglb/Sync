@@ -57,7 +57,7 @@ void station_wait_for_car(struct station *station){
     pthread_mutex_lock(&station->mutex);
 
     int meu_ticket = station->proximo_ticket;
-    
+
     station->proximo_ticket++;
     station->passageiros_esperando++;
 
@@ -77,5 +77,16 @@ void station_wait_for_car(struct station *station){
 }
 
 void station_on_board(struct station *station){
-    (void) station;
+    pthread_mutex_lock(&station->mutex);
+
+    station->passageiros_embarcados++;
+
+    if (station->passageiros_embarcados >=
+        station->passageiros_esperados_embarque) {
+
+        pthread_cond_signal(&station->embarque);
+    }
+
+    pthread_mutex_unlock(&station->mutex);
+    
 }
