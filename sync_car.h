@@ -7,13 +7,9 @@ struct station {
     pthread_mutex_t mutex;
     pthread_cond_t passageiros;
     pthread_cond_t embarque;
-    int passageiros_esperados_embarque;
-    int proximo_ticket;
-    int limite_ticket;
     int passageiros_esperando;
     int assentos_disponiveis;
-    int passageiros_autorizados;
-    int passageiros_embarcados;
+    int passageiros_embarcando;
     int carro_na_estacao;
 };
 
